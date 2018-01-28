@@ -58,20 +58,33 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
+/* My Custom Commands */
+static const char *lock_and_suspend[] = { "lock_and_suspend", NULL };
+static const char *firefox[] = { "firefox", NULL };
+static const char *firefox_private[] = { "firefox", "--private-window", NULL };
+static const char *pavucontrol[] = { "pavucontrol", NULL };
+static const char *ranger[] = { "st", "-e", "ranger", NULL };
+static const char *htop[] = { "st", "-e", "htop", NULL };
+static const char *atom[] = { "atom", NULL };
+static const char *volume_down[] = { "pamixer", "-d", "5", NULL };
+static const char *volume_mute[] = { "pamixer", "-t", NULL };
+static const char *volume_up[] = { "pamixer", "-i", "5", NULL };
+static const char *brightness_down[] = { "xbacklight", "-dec", "5", NULL };
+static const char *brightness_up[] = { "xbacklight", "-inc", "5", NULL };
+// static const char *[] = { "", NULL };
+
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,					              XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
+	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+	{ MODKEY,					              XK_q,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
@@ -92,7 +105,20 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ MODKEY|ShiftMask,             XK_Escape, quit,           {0} },
+	{ MODKEY,												XK_x,			 spawn,					 {.v = lock_and_suspend} },
+	{ MODKEY, 											XK_c,			 spawn,					 {.v = firefox} },
+	{ MODKEY|ShiftMask, 						XK_c,			 spawn,					 {.v = firefox_private} },
+	{ MODKEY|ShiftMask, 						XK_a,			 spawn,					 {.v = pavucontrol} },
+	{ MODKEY,						 						XK_a,			 spawn,					 {.v = atom} },
+	{ MODKEY, 											XK_r,			 spawn,					 {.v = ranger} },
+	{ MODKEY, 											XK_i,			 spawn,					 {.v = htop} },
+	{ MODKEY, 											0x1008ff11,			 spawn,					 {.v = volume_down} },
+	{ MODKEY, 											0x1008ff12,			 spawn,					 {.v = volume_mute} },
+	{ MODKEY, 											0x1008ff13,			 spawn,					 {.v = volume_up} },
+	{ MODKEY, 											0x1008ff03,			 spawn,					 {.v = brightness_down} },
+	{ MODKEY, 											0x1008ff02,			 spawn,					 {.v = brightness_up} },
+	// { MODKEY, 											XK_,			 spawn,					 {.v = } },
 };
 
 /* button definitions */
