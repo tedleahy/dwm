@@ -9,7 +9,7 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const int showsystray        = 1;     /* 0 means no systray */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=14" };
+static const char *fonts[]          = { "Droid Sans Mono Dotted for Powerline:size=14" };
 static const char dmenufont[]       = "monospace:size=14";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -64,11 +64,9 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "st", NULL };
 
 /* My Custom Commands */
-static const char *lock_and_suspend[] = { "lock_and_suspend", NULL };
-//static const char *browser[] = { "firefox", NULL };
-//static const char *browser_private[] = { "firefox", "--private-window", NULL };
-static const char *browser[] = { "iridium-browser", NULL };
-static const char *browser_private[] = { "iridium-browser", "--incognito", NULL };
+static const char *lock_and_suspend[] = { "/home/ted/config_files/Scripts/lock_and_suspend", NULL };
+static const char *browser[] = { "firefox", NULL };
+static const char *browser_private[] = { "firefox", "--private-window", NULL };
 static const char *pavucontrol[] = { "pavucontrol", NULL };
 static const char *ranger[] = { "st", "-e", "ranger", NULL };
 static const char *htop[] = { "st", "-e", "htop", NULL };
@@ -79,20 +77,21 @@ static const char *volume_up[] = { "pamixer", "--allow-boost", "-i", "5", NULL }
 static const char *brightness_down[] = { "xbacklight", "-dec", "5", NULL };
 static const char *brightness_up[] = { "xbacklight", "-inc", "5", NULL };
 static const char *screenshot[] = { "gnome-screenshot", "-a", NULL };
+static const char *clipmenu[] = { "clipmenu", NULL };
 // static const char *[] = { "", NULL };
 
 static Key keys[] = {
-	/* modifier                     key        function        argument */
+	/* modifier                     key        			 function        argument */
 	{ MODKEY,                       XK_d,      			 spawn,          {.v = dmenucmd } },
-	{ MODKEY,					              XK_Return, 			 spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_b,      			 togglebar,      {0} },
+	{ MODKEY,					    XK_Return, 			 spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_s,      			 togglebar,      {0} },
 	{ MODKEY,                       XK_j,      			 focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      			 focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      			 setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      			 setmfact,       {.f = +0.05} },
 	{ MODKEY|ShiftMask,             XK_Return, 			 zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    			 view,           {0} },
-	{ MODKEY,					              XK_q,      			 killclient,     {0} },
+	{ MODKEY,					    XK_q,      			 killclient,     {0} },
 	{ MODKEY,                       XK_t,      			 setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      			 setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      			 setlayout,      {.v = &layouts[2]} },
@@ -114,20 +113,21 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      			 7)
 	TAGKEYS(                        XK_9,                      			 8)
 	{ MODKEY|ShiftMask,             XK_Escape, 			 quit,           {0} },
-	{ MODKEY,												XK_x,			 			 spawn,					 {.v = lock_and_suspend} },
-	{ MODKEY, 											XK_c,			 			 spawn,					 {.v = browser} },
-	{ MODKEY|ShiftMask, 						XK_c,			 			 spawn,					 {.v = browser_private} },
-	{ MODKEY|ShiftMask, 						XK_a,			 			 spawn,					 {.v = pavucontrol} },
-	{ MODKEY,						 						XK_a,			 			 spawn,					 {.v = atom} },
-	{ MODKEY, 											XK_r,			 			 spawn,					 {.v = ranger} },
-	{ MODKEY, 											XK_i,			 			 spawn,					 {.v = htop} },
-	{ MODKEY, 											0x1008ff11,			 spawn,					 {.v = volume_down} },
-	{ MODKEY, 											0x1008ff12,			 spawn,					 {.v = volume_mute} },
-	{ MODKEY, 											0x1008ff13,			 spawn,					 {.v = volume_up} },
-	{ MODKEY, 											0x1008ff03,			 spawn,					 {.v = brightness_down} },
-	{ MODKEY, 											0x1008ff02,			 spawn,					 {.v = brightness_up} },
-	{ MODKEY|ShiftMask, 						XK_3,			 			 spawn,					 {.v = screenshot} },
-	// { MODKEY, 											XK_,			 spawn,					 {.v = } },
+	{ MODKEY,						XK_x,			 	 spawn,			 {.v = lock_and_suspend} },
+	{ MODKEY, 						XK_b,			 	 spawn,			 {.v = browser} },
+	{ MODKEY|ShiftMask, 			XK_b,			 	 spawn,			 {.v = browser_private} },
+	{ MODKEY|ShiftMask, 			XK_a,			 	 spawn,			 {.v = pavucontrol} },
+	{ MODKEY,					 	XK_a,			 	 spawn,			 {.v = atom} },
+	{ MODKEY, 						XK_r,			 	 spawn,			 {.v = ranger} },
+	{ MODKEY, 						XK_i,			 	 spawn,			 {.v = htop} },
+	{ MODKEY, 						0x1008ff11,			 spawn,			 {.v = volume_down} },
+	{ MODKEY, 						0x1008ff12,			 spawn,			 {.v = volume_mute} },
+	{ MODKEY, 						0x1008ff13,			 spawn,			 {.v = volume_up} },
+	{ MODKEY, 						0x1008ff03,			 spawn,			 {.v = brightness_down} },
+	{ MODKEY, 						0x1008ff02,			 spawn,			 {.v = brightness_up} },
+	{ MODKEY|ShiftMask, 			XK_3,				 spawn,			 {.v = screenshot} },
+	{ MODKEY, 						XK_c,				 spawn,			 {.v = clipmenu} },
+	// { MODKEY, 						XK_,				 spawn,			 {.v = } },
 };
 
 /* button definitions */
